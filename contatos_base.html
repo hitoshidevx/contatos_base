@@ -8,7 +8,7 @@
 <body onload = "listar()">
     <input type="text" id="nome" required/>
     <input type="text" id="email" required/>
-    <input type="text" id="telefone" required/>
+    <input type="text" id="senha" required/>
 
     <button type="button" id='btnCadastrar'>Cadastrar</button>
     <button type="button" id='btnRemover'>Remover</button>
@@ -24,45 +24,89 @@
     </table>   
 
     <script>
+        let nome = document.querySelector("#nome")
+        let email = document.querySelector("#email")
+        let senha = document.querySelector("#senha")
 
         let contatos = [{ 
-                            nome : 'Fernando',
-                            email : 'fernando.guerra@sp.senai.br',
-                            telefone : '11972084334'
-                        }]
+            nome  : 'Fernando',
+            email : 'fernando.guerra@sp.senai.br',
+            senha : 'senha'
+        }]
 
         let btnCadastrar = document.querySelector('#btnCadastrar');        
         let btnRemover = document.querySelector('#btnRemover');
-                        
+        
+        btnCadastrar.addEventListener('click', cadastrar);
+        btnRemover.addEventListener('click', remover);
+    
         function listar()
         {
 
             let corpoTabela = document.querySelector("#tabela-lista-corpo");
 
             corpoTabela.innerHTML = "";
-            let linha, colunaNome, colunaEmail, colunaTelefone;  
+            let linha, colunaNome, colunaEmail, colunaSenha;  
 
             contatos.forEach(item =>{
                 linha = document.createElement("tr");
                 
                 colunaNome = document.createElement("td");
-                colunaNome.innerHTML = item;
-                linha.appendChild(colunaNome);
-                corpoTabela.appendChild(linha);
-
                 colunaEmail = document.createElement("td");
-                colunaEmail.innerHTML = item;
-                linha.appendChild(colunaEmail);
-                corpoTabela.appendChild(linha);
+                colunaSenha = document.createElement("td");
+                colunaNome.innerHTML = item.nome;
+                colunaEmail.innerHTML = item.email;
+                colunaSenha.innerHTML = item.senha;  
 
-                colunaTelefone = document.createElement("td");
-                colunaTelefone.innerHTML = item;  
-                linha.appendChild(colunaTelefone);
+                linha.appendChild(colunaNome);
+                linha.appendChild(colunaEmail);
+                linha.appendChild(colunaSenha);
                 corpoTabela.appendChild(linha);
                 
                 
 
             })
+
+        }
+
+        function cadastrar(event){
+            event.preventDefault()
+
+            let contato = { 
+                nome    : nome.value,
+                email   : email.value,
+                senha   : senha.value
+            }
+
+            contatos.push(contato);
+
+            console.log("Contato cadastrado!");
+
+            listar();
+        }
+
+        function remover(){
+            event.preventDefault()
+
+            // let contato = { 
+            //     nome    : nome.value,
+            //     email   : email.value,
+            //     senha   : senha.value
+            // }
+
+            let index = contatos.indexOf(nome.value, email.value, senha.value);
+
+            if(index > -1){
+
+                contatos.splice(index, 1);  
+                alert("Contato removido")
+                listar();
+
+            } else {
+
+                alert("Contato não encontrado!");
+
+            }
 
         }
 
