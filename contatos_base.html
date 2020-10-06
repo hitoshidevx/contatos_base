@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contatos</title>
 </head>
-<body>
+<body onload = "listar()">
     <input type="text" id="nome" required/>
     <input type="text" id="email" required/>
     <input type="text" id="telefone" required/>
@@ -24,11 +24,48 @@
     </table>   
 
     <script>
+
         let contatos = [{ 
                             nome : 'Fernando',
                             email : 'fernando.guerra@sp.senai.br',
                             telefone : '11972084334'
                         }]
+
+        let btnCadastrar = document.querySelector('#btnCadastrar');        
+        let btnRemover = document.querySelector('#btnRemover');
+                        
+        function listar()
+        {
+
+            let corpoTabela = document.querySelector("#tabela-lista-corpo");
+
+            corpoTabela.innerHTML = "";
+            let linha, colunaNome, colunaEmail, colunaTelefone;  
+
+            contatos.forEach(item =>{
+                linha = document.createElement("tr");
+                
+                colunaNome = document.createElement("td");
+                colunaNome.innerHTML = item;
+                linha.appendChild(colunaNome);
+                corpoTabela.appendChild(linha);
+
+                colunaEmail = document.createElement("td");
+                colunaEmail.innerHTML = item;
+                linha.appendChild(colunaEmail);
+                corpoTabela.appendChild(linha);
+
+                colunaTelefone = document.createElement("td");
+                colunaTelefone.innerHTML = item;  
+                linha.appendChild(colunaTelefone);
+                corpoTabela.appendChild(linha);
+                
+                
+
+            })
+
+        }
+
     </script>
 </body>
 </html>
