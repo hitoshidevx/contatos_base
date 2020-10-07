@@ -24,9 +24,6 @@
     </table>   
 
     <script>
-        let nome = document.querySelector("#nome")
-        let email = document.querySelector("#email")
-        let senha = document.querySelector("#senha")
 
         let contatos = [{ 
             nome  : 'Fernando',
@@ -40,6 +37,10 @@
         btnCadastrar.addEventListener('click', cadastrar);
         btnRemover.addEventListener('click', remover);
     
+        let nome = document.querySelector('#nome');
+        let email = document.querySelector('#email');
+        let senha = document.querySelector('#senha');
+
         function listar()
         {
 
@@ -66,7 +67,7 @@
                 
 
             })
-
+            limparCampo();
         }
 
         function cadastrar(event){
@@ -94,16 +95,12 @@
             //     senha   : senha.value
             // }
 
-            let nome = document.querySelector("#nome");
-            let email = document.querySelector("#email");
-            let senha = document.querySelector("#senha");
-
-            let index = contatos.indexOf(nome.value, email.value, senha.value);
+            let index = contatos.findIndex(item => item.senha === senha.value);
 
             if(index > -1){
-                
+               
                 contatos.splice(index, 1);  
-                alert("Contato removido")
+                alert("Contato removido");
                 listar();
 
             } else {
@@ -112,6 +109,16 @@
 
             }
 
+        }
+
+        function limparCampo()
+        {
+
+            nome.value  = "";
+            email.value = "";
+            senha.value = "";
+
+            nome.focus();
         }
 
     </script>
